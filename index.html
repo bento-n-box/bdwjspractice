@@ -1,29 +1,124 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
 <link rel="stylesheet" href="css/courtearpcss.css">
+<!-- Latest compiled and minified CSS -->
+
 
 <style>
+	.next,
+	.prev {
+		width: 100px;
+		background: white;
+		height: 50px;
+		border-radius: 100%;
+		color: red;
+		position: fixed;
+		z-index: 999;
+	}
+
+	.next {
+		right: 0;
+	}
+	.prev {
+		left: 0;
+	}
 
 
 </style>
-</head>	
-
+</head>
+<body>
 <div class="header">
 	<div class="header__top--logo">
 		<img src="images/logo.png"> 2.23.15
-	</div>	
-</div>	
+	</div>
+</div>
 <div class="navigation__primary">
+	<a href="#test"></a>
+	<a href="#"></a>
+	<div id="prev"  class="prev">PREV</div>
 	<ul>
-		<a href="#"><li>1</li></a>
-		<a href="#"><li>2</li></a>
-		<a href="#"><li>3</li></a>
-		<a href="#"><li>4</li></a>
-	</ul>	
-</div>	
+		<li class="navigation__primary-list">Boat</li>
+		<li class="navigation__primary-list">Foot</li>
+		<li class="navigation__primary-list">Steamy Lake</li>
+		<li class="navigation__primary-list">Cat</li>
+	</ul>
+
+	<div id="next" class="next">NEXT</div>
+</div>
+
+
 
 <div class="main__content--body">
+
 	<div class="main__content--images">
-		<img src="images/jumping_board_lake.jpg"> 
-	</div>	
-</div>	
+		<img src="images/jumping_board_lake.jpg">
+	</div>
+	<div class="main__content--images">
+		<img src="images/footstep_on_sand.jpg">
+	</div>
+	<div class="main__content--images">
+		<img src="images/steamy_lake.jpg">
+	</div>
+	<div class="main__content--images">
+		<img src="http://placekitten.com/800/300">
+	</div>
+
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+	// Scroll Events
+	$(window).scroll(function ( ){
+		var pos = $(this).scrollTop();
+		var location = 231;
+		var $header = $('.header__top--logo');
+
+		if (pos > location) {
+			$header.css({
+				top: -(pos - location)
+			});
+		}
+		else {
+			$header.css({top: 0});
+		}
+	});
+
+	// Handles Click Event for class .navigation__primary-list
+	// Updates Carousel
+	$('.navigation__primary-list').click(function(event) {
+		var link = $(this);
+		var linkIndex = link.index();
+		handleSlideChange(linkIndex);
+	});
+
+	// runs onload
+	// Loads first first slide
+	$('.main__content--images').eq(1).addClass('active').css({
+		opacity: 1
+	});
+
+	//  Handles Carousel Change
+	//
+	function handleSlideChange(slideNum) {
+		$('.main__content--images.active').animate({opacity: 0}, 500,
+			function (){
+				$(this).removeClass("active");
+
+				$('.main__content--images')
+					.eq(slideNum)
+					.addClass('active')
+					.animate({
+						opacity: 1
+					});
+			});
+	};
+
+	function nextSlide() {}
+	function prevSlide() {}
+
+
+</script>
+
+
+</body>
